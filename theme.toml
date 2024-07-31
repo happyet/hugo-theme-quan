@@ -1,0 +1,25 @@
+name = "Quan"
+license = "MIT"
+licenselink = "https://github.com/Mitrichius/hugo-theme-anubis/blob/master/LICENSE"
+description = "A minimal Hugo theme for personal websites"
+homepage = "https://github.com/happyet/hugo-theme-Quan"
+demosite = "https://lms.im/"
+tags = [
+    "blog", 
+    "responsive",
+    "personal",
+    "minimal", 
+    "clean",
+    "simple", 
+    "light",
+    "dark",
+    "google-analytics",
+    "mobile",
+    "fast",
+    "multilingual"
+]
+features = ["blog"]
+
+[author]
+    name = "LMS"
+    homepage = "https://lms.pub/"

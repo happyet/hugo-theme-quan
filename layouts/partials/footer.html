@@ -1,0 +1,22 @@
+<footer class="common-footer">
+    <div class="common-footer-bottom">
+        {{ if .Site.Menus.footer }}
+            {{ $currentPage := . }}
+            <ul class="footer-menu">
+                {{ range .Site.Menus.footer }}
+                <li><a class="{{if or ($currentPage.IsMenuCurrent "footer" .) ($currentPage.HasMenuCurrent "footer" .) }} active{{end}}" href="{{ .URL | absLangURL }}" title="{{ .Title }}">{{ .Name }}</a></li>
+                {{ end }}
+            </ul>
+        {{ end }}
+        <div class="copyright">
+            <p>© {{ if .Site.Title}}{{ .Site.Title }}, {{end}}{{ now.Year }}<br>
+            Powered by <a target="_blank" rel="noopener noreferrer" href="https://gohugo.io/">Hugo</a>, Theme <a href="https://lms.pub">LMS</a>.<br>
+            </p>  
+        </div> 
+    </div>
+</footer>
+{{ partial "footer-menu.html" . }}
+{{ range .Site.Params.customJS -}}
+  {{ partial "resource.html" (dict "context" $ "type" "js" "filename" . ) }}
+{{- end }}
+{{ partial "resource.html" (dict "context" . "type" "js" "filename" "js/quan.js") }}

@@ -1,0 +1,16 @@
+{{ if or ( .PrevInSection ) ( .NextInSection ) }}
+    {{ $toNewPostMessage := i18n "toNewPost" }}
+    {{ $toOldPostMessage := i18n "toOldPost" }}
+    <div class="pagination post-pagination">
+        <div class="right pagination-item {{ if not .PrevInSection }}disabled{{ end }}">
+            {{ if .PrevInSection }}
+                <a href="{{ .PrevInSection.RelPermalink }}" title="{{ .PrevInSection.Title }}">上一篇</a>
+            {{ end }}
+        </div>
+        <div class="left pagination-item {{ if not .NextInSection }}disabled{{ end }}">
+            {{ if .NextInSection }}
+                <a href="{{ .NextInSection.RelPermalink }}" title="{{ .NextInSection.Title }}">下一篇</a>
+            {{ end }}
+        </div>
+    </div>
+{{ end }}

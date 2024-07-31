@@ -1,0 +1,64 @@
+baseURL = '/'
+languageCode = 'zh-cn'
+defaultContentLanguage = 'zh-cn'
+title = '朋友圈'
+enableRobotsTXT = true
+theme = 'Quan'
+paginate = 10
+
+[author]
+  name = 'LMS'
+  email = 'i@lms.im'
+
+[Params]
+  mainSections = ["memos"]
+  archiveSections = ["theme", "news"]
+  dateFormat = '2006-01-02'
+  paginationSinglePost = true
+  readMore = false
+  copyCodeButton = true
+  rssAsSocialIcon = true
+  mathjax = false
+  search = true
+  avatar = 'https://gravatar.memobbs.app/avatar/d9cc49ea0301640d7a19b6a1e77012dd?s=80'
+  logoImg = '/images/avatar.jpg'
+  bannerImg = '/images/banner.jpg'
+  description = '山不来就我，我就算了。'
+  customCSS = ['css/APlayer.min.css']
+  customJS = ['js/view-image.min.js','js/Lately.min.js','js/lozad.min.js']
+
+  social = [
+    { id = "facebook", name = "name" },
+    { id = "twitter", url = "https://www.twitter.com/username" },
+    { id = "github", url = "https://www.github.com/username" },
+    { id = "bilibili", url = "https://www.github.com/username" },
+    { id = "email", url = "https://www.github.com/username" },
+    { id = "mastodon", url = "https://www.github.com/username" }
+  ]
+  
+
+[markup.goldmark.renderer]
+  unsafe = true
+  hardWraps= true
+
+[taxonomies]
+  category = 'categories'
+  tag = 'tags'
+
+[permalinks]
+  categories =  "/category/:slug/"
+
+[outputs]
+  home = ["HTML","JSON","RSS","SITEMAP"]
+  page = ["HTML"]
+
+[related]
+  includeNewer = true
+
+  [[related.indices]]
+      name = "categories"
+      weight = 100
+
+  [[related.indices]]
+      name = "tags"
+      weight = 100

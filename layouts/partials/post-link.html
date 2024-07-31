@@ -1,0 +1,10 @@
+{{ with .Params.link }}
+{{ range .}}
+<div class="post-resource link-wrapper">
+    <a href="{{ .url }}" target="_blank">
+        {{ with .logo }}<img src="{{ . }}">{{ else }}{{ partial "font-awesome.html" (dict "iconName" "link" "custom" false) }}{{ end }}
+        {{ .title }}
+    </a>
+</div>
+{{ end }}
+{{ end }}

@@ -1,0 +1,55 @@
+{{ define "main" }}
+{{ $dateFormat := "2006-01-02" }}
+{{ if .Site.Params.dateFormat }}
+    {{ $dateFormat = .Site.Params.dateFormat }}
+{{ end }}
+{{ $machineDateFormat := "2006-01-02 15:04" }}
+
+{{ if not (in .Site.Params.mainSections .Section) }}
+    <article class="article h-feed">
+        <div class="single-post">
+            <h2 class="post-title">{{ .Params.Title }}</h2>
+            {{ partial "post-info.html" . }}
+            <div class="content single-content">
+                {{ .Content }}
+            </div>
+        </div>
+    </article>
+    {{ partial "post-related.html" . }}
+    <div class="post-toggle-comment" data-post="{{ .RelPermalink }}"><span class="single-toggle-comment">写留言</span></div>
+{{ else}}
+    <article class="article h-feed">
+        <div class="post memo-post">
+            <img src="{{ .Site.Params.Avatar | relLangURL }}" alt="{{ .Params.Author | default .Site.Author.name }}" class="avatar">
+            <div class="post-right">
+                <div class="post-header">
+                    {{ .Params.Author | default .Site.Author.name }}
+                </div>
+                <div class="content memo-content">
+                    {{ .Content }}
+                    {{ partial "post-link.html" . }}
+                    {{ partial "post-video.html" . }}
+                    {{ with .Params.pictures }}
+                        {{ range . }}
+                        <figure class="images-wrapper">
+                            <img class="lozad" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ .pic }}" alt="{{ .alt }}">
+                            <figcaption>{{ .alt }}</figcaption>
+                        </figure>
+                        {{ end }}
+                    {{ end }}
+                </div>
+                {{ partial "post-info-memo.html" . }}
+            </div>
+        </div>
+    </article>
+{{ end }}
+
+    {{ if and (.Site.Params.paginationSinglePost) (ne .Type "page") }}
+        {{ partial "post-pagination.html" . }}
+    {{ end }}
+
+    {{ if not .Params.disableComments }}
+        {{ partial "comments.html" . }}
+    {{ end }}
+
+{{ end }}

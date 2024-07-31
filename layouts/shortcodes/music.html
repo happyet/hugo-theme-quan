@@ -1,0 +1,53 @@
+<div class="post-resource">
+{{- $scratch := .Page.Scratch.Get "scratch" -}}
+<!-- require APlayer -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://fastly.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+ <script>
+    var meting_api = "https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&auth=:auth&r=:r&.js";
+ </script>
+ </script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+
+{{- if .IsNamedParams -}}
+    {{- if .Get "url" -}}
+        <meting-js url="{{ .Get `url` }}" name="{{ .Get `name` }}" artist="{{ .Get `artist` }}" cover="{{ .Get `cover` }}" theme="{{ .Get `theme` | default `#2980b9` }}"
+        {{- with .Get "fixed" }} fixed="{{ . }}"{{ end -}}
+        {{- with .Get "mini" }} mini="{{ . }}"{{ end -}}
+        {{- with .Get "autoplay" }} autoplay="{{ . }}"{{ end -}}
+        {{- with .Get "volume" }} volume="{{ . }}"{{ end -}}
+        {{- with .Get "mutex" }} mutex="{{ . }}"{{ end -}}
+        ></meting-js>
+    {{- else if .Get "auto" -}}
+        <meting-js auto="{{ .Get `auto` }}" theme="{{ .Get `theme` | default `#2980b9` }}"
+        {{- with .Get "fixed" }} fixed="{{ . }}"{{ end -}}
+        {{- with .Get "mini" }} mini="{{ . }}"{{ end -}}
+        {{- with .Get "autoplay" }} autoplay="{{ . }}"{{ end -}}
+        {{- with .Get "loop" }} loop="{{ . }}"{{ end -}}
+        {{- with .Get "order" }} order="{{ . }}"{{ end -}}
+        {{- with .Get "volume" }} volume="{{ . }}"{{ end -}}
+        {{- with .Get "mutex" }} mutex="{{ . }}"{{ end -}}
+        {{- with .Get "list-folded" }} list-folded="{{ . }}"{{ end -}}
+        {{- with .Get "list-max-height" }} list-max-height="{{ . }}"{{ end -}}
+        ></meting-js>
+    {{- else -}}
+        <meting-js server="{{ .Get `server` }}" type="{{ .Get `type` }}" id="{{ .Get `id` }}" theme="{{ .Get `theme` | default `#2980b9` }}"
+        {{- with .Get "fixed" }} fixed="{{ . }}"{{ end -}}
+        {{- with .Get "mini" }} mini="{{ . }}"{{ end -}}
+        {{- with .Get "autoplay" }} autoplay="{{ . }}"{{ end -}}
+        {{- with .Get "loop" }} loop="{{ . }}"{{ end -}}
+        {{- with .Get "order" }} order="{{ . }}"{{ end -}}
+        {{- with .Get "volume" }} volume="{{ . }}"{{ end -}}
+        {{- with .Get "mutex" }} mutex="{{ . }}"{{ end -}}
+        {{- with .Get "list-folded" }} list-folded="{{ . }}"{{ end -}}
+        {{- with .Get "list-max-height" }} list-max-height="{{ . }}"{{ end -}}
+        ></meting-js>
+    {{- end -}}
+{{- else if strings.HasSuffix (.Get 0) "http" -}}
+    <meting-js auto="{{ .Get 0 }}" theme="#2980b9"></meting-js>
+{{- else -}}
+    <meting-js server="{{ .Get 0 }}" type="{{ .Get 1 }}" id="{{ .Get 2 }}" theme="#2980b9"></meting-js>
+{{- end -}}
+{{- $scratch.Set "music" true -}}
+</div>

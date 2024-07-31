@@ -1,0 +1,58 @@
+{{ $dateFormat := "2006-01-02" }}
+{{ if .Site.Params.dateFormat }}
+    {{ $dateFormat = .Site.Params.dateFormat }}
+{{ end }}
+{{ $machineDateFormat := "2006-01-02 15:04" }}
+
+<div class="post-info">
+    {{ if .Params.date }}
+        <div class="post-date dt-published">
+            <a class="u-url" href="{{ .RelPermalink }}"><time class="post-date" datetime="{{ .Params.date.Format $machineDateFormat }}">
+                {{- .Params.date.Format $dateFormat -}}
+            </time></a>
+            {{ if ne .Params.date .Params.lastMod -}}
+                [{{ i18n "lastMod" }} <time datetime="{{ .Params.lastMod.Format $machineDateFormat }}">
+                    {{- .Params.lastMod.Format $dateFormat -}}
+                </time>]
+            {{- end }}
+        </div>
+    {{ end }}
+    {{ if or (.Params.categories) (.Params.tags) }}
+    <div class="post-taxonomies">
+        {{ if .Params.categories }}
+            <ul class="post-categories">
+                {{ range $cat_name := .Params.categories }}
+                    <li><a href="/category/{{ $cat_name | urlize }}">{{ $cat_name }}</a></li>
+                {{ end }}
+            </ul>
+        {{ end }}
+        {{ if .Params.tags }}
+            <ul class="post-tags">
+                {{ range $tag_name := .Params.tags }}
+                    {{ $tag := ($.Site.GetPage (printf "/tags/%s" $tag_name | urlize )) }}
+                    <li><a href="{{ $tag.Permalink }}">#{{ $tag.Title | default $tag_name }}</a></li>
+                {{ end }}
+            </ul>
+        {{ end }}
+    </div>
+    {{ end }}
+    {{ with .Params.location }}
+        <div class="post-location">{{ partial "font-awesome.html" (dict "iconName" "location" "custom" false) }} {{ . }}</div>
+    {{ end }}
+    <div class="post-tool">
+        {{ partial "font-awesome.html" (dict "iconName" "toolbar" "custom" false) }}
+    </div>
+    <div class="post-tool-content">
+        <div class="d-flex tool-content-inner">
+            <div class="post-zan d-flex">
+                <svg data-v-e8d5a3a3="" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-icon"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                <span>赞</span>
+            </div>
+            <div class="divider"></div>
+            <div class="post-toggle-comment d-flex" data-post="{{ .RelPermalink }}">
+                <svg data-v-e8d5a3a3="" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square-more-icon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 10h.01"></path><path d="M12 10h.01"></path><path d="M16 10h.01"></path></svg>
+                <span>评论</span>
+            </div>
+        </div>
+    </div>
+</div>

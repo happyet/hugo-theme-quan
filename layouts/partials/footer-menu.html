@@ -1,0 +1,13 @@
+<div class="footer-menu d-flex">
+    <a href="/"{{ if .IsHome }} class="active"{{ end }}>{{ partial "font-awesome.html" (dict "iconName" "home" "custom" false) }}</a>
+    <a href="/archives/"{{ if eq .Params.Url "/archives/" }}class="active"{{ end }}>{{ partial "font-awesome.html" (dict "iconName" "archives" "custom" false) }}</a>
+    <a href="/blogroll/"{{ if eq .Params.Url "/blogroll/" }}class="active"{{ end }}>{{ partial "font-awesome.html" (dict "iconName" "user-group" "custom" false) }}</a>
+    <a href="/about/"{{ if eq .Params.Url "/about/" }}class="active"{{ end }}>{{ partial "font-awesome.html" (dict "iconName" "user" "custom" false) }}</a>
+</div>
+<div class="comment-panel d-none">
+    <form class="comment-form">
+        <textarea class="comment-content" rows="1" placeholder="请输入评论..." required></textarea>
+        <div class="smilly-icon">{{ partial "font-awesome.html" (dict "iconName" "smille" "custom" false) }}</div>
+        <button class="submit-comment" disabled>发送</button>
+    </form>
+</div>

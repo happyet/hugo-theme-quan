@@ -1,0 +1,19 @@
+{{ define "main" }}
+    <div class="article h-feed">
+        {{ .Content }}
+        <div class="link-group">
+            <ul class="link-items">
+                {{ range .Params.links }}
+                <li class="link-item">
+                    <a class="link-item-inner effect-apollo" href="{{ .link }}" title="{{ .title }}" target="_blank">
+                        <img  class="lozad" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ .cover | relLangURL }}" alt="{{ .title }}"/>
+                        <span class="sitename">{{ .title }}</span>
+                        <em>{{ .description }}</em>
+                    </a>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+
+{{ end }}

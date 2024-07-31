@@ -1,0 +1,35 @@
+{{ $pictures_set := slice}}
+    {{ with .Params.pictures }}
+        {{ range . }}
+        {{ with . }}
+            {{ $pictures_set = $pictures_set | append . }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+{{ $pictureCount := len $pictures_set }}
+
+{{ if gt $pictureCount 0 }}
+    {{ if eq $pictureCount 1 }}
+        <div class="post-resource images-wrapper single-image">
+        {{ range .Params.pictures }}
+            <img class="lozad" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ .pic }}" alt="{{ .alt }}">
+        {{ end }}
+        </div>
+    {{ else if eq $pictureCount 2 }}
+        <div class="post-resource images-wrapper image-grid two-image">
+        {{ range .Params.pictures }}
+            <div class="image-item">
+                <img class="lozad" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ .pic }}" alt="{{ .alt }}">
+            </div>
+        {{ end }}
+        </div>
+    {{ else }}
+        <div class="post-resource images-wrapper image-grid three-image">
+        {{ range first 9 .Params.pictures }}
+            <div class="image-item">
+                <img class="lozad" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ .pic }}" alt="{{ .alt }}">
+            </div>
+        {{ end }}
+        </div>
+    {{ end }}
+{{ end }}

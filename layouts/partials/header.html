@@ -1,0 +1,24 @@
+<img src="{{ .Site.Params.bannerImg | relLangURL }}" alt="{{ .Site.Title }}" class="banner-img">
+<div class="header-top">
+    <div class="header-top-left">
+        {{ if eq .Page.Kind "home" }}
+        <!-- 这里是首页独有的内容 -->
+        {{ else }}
+        <a href="{{ .Site.BaseURL | relLangURL }}">{{ partial "font-awesome.html" (dict "iconName" "left" "custom" false) }}</a>
+        {{ end }}
+        
+    </div>
+    <div class="header-top-right">
+        {{ partial "social.html" . }}
+        <div class="theme-switcher">
+            {{ partial "font-awesome.html" (dict "iconName" "halfcircle" "custom" false) }}
+        </div>  
+    </div>
+</div>
+
+<div class="site-title">
+  <span class="site-name">{{ .Site.Title }}</span>
+    <p>{{ .Site.Params.Description }}</p>
+    <a href="{{ .Site.BaseURL | relLangURL }}"><img src="{{ .Site.Params.logoImg | relLangURL }}" alt="{{ .Site.Author.name }}" class="avatar-img"></a>
+</div>
+{{ if .Site.Params.mathjax }}{{ partial "mathjax_support.html" . }}{{ end }}

@@ -1,0 +1,12 @@
+{{ define "main" }}
+    <article class="article h-entry">
+
+        <div class="content single-content">
+            {{ .Content }}
+        </div>       
+    </article>
+
+    {{ if not .Params.disableComments }}
+        {{ partial "comments.html" . }}
+    {{ end }}
+{{ end }}

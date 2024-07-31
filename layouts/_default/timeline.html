@@ -1,0 +1,32 @@
+{{ define "main" }}
+    <div class="index-content">
+        {{ .Content }}
+    </div>
+
+    <div class="articles h-feed">
+        <h3>共计 {{ len (where .Site.RegularPages "Section" "posts") }} 篇日志</h3>
+
+        {{- range  (where (where .Site.Pages "Type" "in" "posts") "Kind" "page").GroupByDate "2006" }}
+        <div class="time-line-list">
+            {{- range .Pages.GroupByDate "2006年" }}
+            <div class="time-line-year">
+                <h3 class="year">{{ .Key }}</h3>
+                <div class="time-line">
+                    {{- range .Pages }}
+                    <div class="post d-flex">
+                        {{ if .Date }}
+                        <span class="post-date">
+                            {{ .Date.Format ($.Site.Params.DateFormatList | default "01月02日") }}
+                        </span>
+                        {{ end }}
+                        <a href="{{ .Permalink }}">{{ .Title | markdownify }}</a>
+                    </div>
+                    {{ end }}
+                </div>
+            </div>
+            {{- end }}
+        </div>
+        {{- end }}
+    </div>
+
+{{ end }}

@@ -1,0 +1,44 @@
+{{ define "main" }}
+    {{ partial "heatmap.html" . }}
+    <div class="index-content">
+        {{ .Content }}
+    </div>
+
+    <div class="archives h-feed">
+
+        {{ range $section := .Site.Params.archiveSections }}
+            {{ $indexPage := $.Site.GetPage (printf "%s/_index" $section) }}
+            {{ if $indexPage }}
+            <div class="cat-slot">
+                {{ $sectionPages := where $.Site.RegularPages "Section" $section }}
+                <div class="cat-header">
+                    <img class="cat-logo" src="{{ $indexPage.Params.cover  }}">
+                    <h2><a href="/category/{{ . }}">{{ $indexPage.Title }}</a></h2>
+                    <span>{{ $indexPage.Params.description  }}</span>共 {{ len $sectionPages }} 篇
+                </div>
+                {{ $limitedPosts := first 3 $sectionPages }}
+                {{ range $limitedPosts }}
+                    <article class="cat-post">
+                        <div class="cat-post-header">
+                        <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+                        {{ if .Params.date }}<time class="post-date">{{- .Params.date.Format "2006-01-02 04:15" -}}</time>{{ end }}
+                        </div>
+                        {{ if .Content }}
+                            {{ $urls := findRE "<img src=\"[^\"|\\\"]*\"" .Content }} 
+                            {{ if $urls }} 
+                                {{ $url :=index ($urls) 0 }} 
+                                {{ $url :=(strings.TrimPrefix "<img src=\"" $url) }}
+                                {{ $url := strings.TrimRight " \"" $url }} 
+                                <img src="{{ $url }}" class="cover" itemprop="image" /> 
+                            {{ end }} 
+                        {{ end }}
+                    </article>
+                {{ else }}
+                    <article class="cat-post">此分类栏目下一片空白。</article>
+                {{ end }}
+            </div>
+            {{ end }}
+        {{ end }}
+    </div>
+
+{{ end }}

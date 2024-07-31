@@ -1,0 +1,21 @@
+<article class="post h-feed">
+    <img src="{{ .Site.Params.Avatar | relLangURL }}" alt="{{ .Params.Author | default .Site.Author.name }}" class="avatar">
+    <div class="post-right">
+        <div class="post-header">
+            <a class="post-author" rel="author" href="{{ .RelPermalink }}">{{ .Params.Author | default .Site.Author.name }}</a>
+        </div>
+        {{ $content := .RawContent }}
+        {{ $shortcodePattern := `{{<.*>}}` }}
+        {{ $shortcodes := findRE $shortcodePattern $content }}
+        {{ $nonShortcodes := replaceRE $shortcodePattern "" $content }}
+        <div class="post-summary">
+            {{ $nonShortcodes | markdownify | safeHTML }}
+        </div>
+        {{ range $shortcodes }}{{ . | markdownify | safeHTML }}{{ end }}
+        {{ partial "post-pictures.html" . }}
+        {{ partial "post-link.html" . }}
+        {{ partial "post-video.html" . }}
+
+        {{ partial "post-info-memo.html" . }}
+    </div>
+</article>

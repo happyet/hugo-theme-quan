@@ -1,0 +1,15 @@
+{{ define "main" }}
+{{ if .Content }}
+<div class="index-content">
+    {{ .Content }}
+</div>
+{{ end }}
+<div class="post-list h-feed">
+    {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+    {{ $paginator := .Paginate ($pages) }}
+    {{ range $paginator.Pages }}
+    {{ partial "post-summary.html" . }}
+    {{ end }}
+    {{ partial "pagination.html" . }}
+</div>
+{{ end }}

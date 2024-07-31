@@ -1,0 +1,31 @@
+{{ define "main" }}
+
+    <div class="cat-slot">
+        <div class="cat-header">
+            {{ $indexPage := $.Site.GetPage (printf "%s/_index.md" .Title) }}
+            <img class="cat-logo" src="{{ $indexPage.Params.cover  }}">
+            <h2>{{ $indexPage.Title }}</h2>
+            <span>{{ $indexPage.Params.description  }}</span>共 {{ len .Pages }} 篇
+        </div>
+        {{ $pages := where .Pages "Params.hidden" "!=" true }}
+        {{ range (.Paginate $pages).Pages }}
+            <article class="cat-post">
+                <div class="cat-post-header">
+                <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+                {{ if .Params.date }}<time class="post-date">{{- .Params.date.Format "2006-01-02 15:04" -}}</time>{{ end }}
+                </div>
+                {{ if .Content }}
+                    {{ $urls := findRE "<img src=\"[^\"|\\\"]*\"" .Content }} 
+                    {{ if $urls }} 
+                        {{ $url :=index ($urls) 0 }} 
+                        {{ $url :=(strings.TrimPrefix "<img src=\"" $url) }}
+                        {{ $url := strings.TrimRight " \"" $url }} 
+                        <img src="{{ $url }}" class="cover" itemprop="image" /> 
+                    {{ end }} 
+                {{ end }}
+            </article>
+        {{ end }}
+    </div>
+    {{ partial "pagination.html" . }}
+
+{{ end }}

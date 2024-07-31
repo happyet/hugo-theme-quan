@@ -1,0 +1,48 @@
+{{ $dateFormat := "2006-01-02" }}
+{{ if .Site.Params.dateFormat }}
+    {{ $dateFormat = .Site.Params.dateFormat }}
+{{ end }}
+{{ $machineDateFormat := "2006-01-02 15:04" }}
+
+<div class="post-info">
+    {{ if or (.Params.categories) (.Params.tags) }}
+    <div class="post-taxonomies">
+        {{ if .Params.categories }}
+            <ul class="post-categories">
+                {{ range $cat_name := .Params.categories }}
+                    <li><a href="/category/{{ $cat_name | urlize }}">{{ $cat_name }}</a></li>
+                {{ end }}
+            </ul>
+        {{ end }}
+        {{ if .Params.tags }}
+            <ul class="post-tags">
+                {{ range $tag_name := .Params.tags }}
+                    {{ $tag := ($.Site.GetPage (printf "/tags/%s" $tag_name | urlize )) }}
+                    <li><a href="{{ $tag.Permalink }}">#{{ $tag.Title | default $tag_name }}</a></li>
+                {{ end }}
+            </ul>
+        {{ end }}
+    </div>
+    {{ end }}
+    {{ if .Params.author }}
+        <div class="post-author">
+            <a href="{{ .Site.Params.Author.link }}">{{ .Params.author }}</a>
+        </div>
+    {{ end }}
+    {{ if .Params.date }}
+        <div class="post-date dt-published">
+            <a class="u-url" href="{{ .RelPermalink }}"><time class="post-date" datetime="{{ .Params.date.Format $machineDateFormat }}">
+                {{- .Params.date.Format $dateFormat -}}
+            </time></a>
+            {{ if ne .Params.date .Params.lastMod -}}
+                [{{ i18n "lastMod" }} <time datetime="{{ .Params.lastMod.Format $machineDateFormat }}">
+                    {{- .Params.lastMod.Format $dateFormat -}}
+                </time>]
+            {{- end }}
+        </div>
+    {{ end }}
+    
+    {{ with .Params.location }}
+        <div class="post-location">{{ partial "font-awesome.html" (dict "iconName" "location" "custom" false) }} {{ . }}</div>
+    {{ end }}
+</div>

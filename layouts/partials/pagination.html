@@ -1,0 +1,9 @@
+{{ if or ( .Paginator.HasPrev ) ( .Paginator.HasNext ) }}
+    <div class="pagination">
+        <div class="pagination-item{{ if not .Paginator.HasNext }} disabled{{ end }}">
+            {{ if .Paginator.HasNext }}
+                <span class="load-next-post" data-url="{{ .Paginator.Next.URL }}">查看更多</span>
+            {{ end }}
+        </div>
+    </div>
+{{ end }}

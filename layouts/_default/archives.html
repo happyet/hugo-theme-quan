@@ -1,5 +1,3 @@
-{{ $dateFormat := "2006-01-02" }}
-{{ $machineDateFormat := "2006-01-02 15:04" }}
 {{ define "main" }}
     {{ partial "heatmap.html" . }}
     <div class="index-content">
@@ -23,7 +21,7 @@
                     <article class="cat-post">
                         <div class="cat-post-header">
                         <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-                        {{ if .Params.date }}<time class="post-date" datetime="{{ .Params.date.Format $machineDateFormat }}">{{- .Params.date.Format $dateFormat -}}</time>{{ end }}
+                        {{ if .Params.date }}<time class="post-date" datetime="{{ .Params.date.Format "2006-01-02 15:04" }}">{{- .Params.date.Format "2006-01-02" -}}</time>{{ end }}
                         </div>
                         {{ if .Content }}
                             {{ $urls := findRE "<img src=\"[^\"|\\\"]*\"" .Content }} 

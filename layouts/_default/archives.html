@@ -23,7 +23,7 @@
                     <article class="cat-post">
                         <div class="cat-post-header">
                         <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-                        {{ if .Params.date }}<time class="post-date">{{- .Params.date.Format $machineDateFormat -}}</time>{{ end }}
+                        {{ if .Params.date }}<time class="post-date" datetime="{{ .Params.date.Format $machineDateFormat }}">{{- .Params.date.Format $dateFormat -}}</time>{{ end }}
                         </div>
                         {{ if .Content }}
                             {{ $urls := findRE "<img src=\"[^\"|\\\"]*\"" .Content }} 

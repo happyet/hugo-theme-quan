@@ -29,10 +29,9 @@
         </div>
     {{ end }}
     {{ if .Params.date }}
-    {{ $date := time.Parse "2006-01-02" .Params.date }}
         <div class="post-date dt-published">
             <a class="u-url" href="{{ .RelPermalink }}">
-                <time class="post-date" datetime="{{ .Params.date }}">{{- $date.Format $dateFormat -}}</time>
+                <time class="post-date" datetime="{{ .Params.date }}">{{- .Date | time.Format (default "2006-01-02" site.Params.DateFormat) -}}</time>
             </a>
             {{ if ne .Params.date .Params.lastMod -}}
                 [{{ i18n "lastMod" }} <time datetime="{{ .Params.lastMod.Format $dateFormat }}">

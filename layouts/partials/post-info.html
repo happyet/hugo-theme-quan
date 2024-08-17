@@ -33,11 +33,11 @@
             <a class="u-url" href="{{ .RelPermalink }}">
                 <time class="post-date" datetime="{{ .Params.date }}">{{- .Date | time.Format (default "2006-01-02" site.Params.DateFormat) -}}</time>
             </a>
-            {{ if ne .Params.date .Params.lastMod -}}
+            {{ if .Params.lastMod }}
                 <time datetime="{{ .Params.lastMod }}">
                    更新 {{- .Params.lastMod | time.Format (default "2006-01-02" site.Params.DateFormat) -}}
                 </time>
-            {{- end }}
+            {{ end }}
         </div>
     {{ end }}
     

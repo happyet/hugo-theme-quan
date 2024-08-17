@@ -2,7 +2,6 @@
 {{ if .Site.Params.dateFormat }}
     {{ $dateFormat = .Site.Params.dateFormat }}
 {{ end }}
-{{ $machineDateFormat := "2006-01-02 15:04" }}
 
 <div class="post-info">
     {{ if or (.Params.categories) (.Params.tags) }}
@@ -30,12 +29,13 @@
         </div>
     {{ end }}
     {{ if .Params.date }}
+    {{ $date := time.Parse "2006-01-02" .Params.date }}
         <div class="post-date dt-published">
-            <a class="u-url" href="{{ .RelPermalink }}"><time class="post-date" datetime="{{ .Params.date.Format $machineDateFormat }}">
-                {{- .Params.date.Format $dateFormat -}}
-            </time></a>
+            <a class="u-url" href="{{ .RelPermalink }}">
+                <time class="post-date" datetime="{{ .Params.date }}">{{- $date.Format $dateFormat -}}</time>
+            </a>
             {{ if ne .Params.date .Params.lastMod -}}
-                [{{ i18n "lastMod" }} <time datetime="{{ .Params.lastMod.Format $machineDateFormat }}">
+                [{{ i18n "lastMod" }} <time datetime="{{ .Params.lastMod.Format $dateFormat }}">
                     {{- .Params.lastMod.Format $dateFormat -}}
                 </time>]
             {{- end }}

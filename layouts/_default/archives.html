@@ -23,7 +23,7 @@
                         <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
                         {{ if .Params.date }}
                         {{ $date := time.Parse "2006-01-02" .Params.date }}
-                        <time class="post-date" datetime="{{ .Params.date }}">{{- .$date.Format "2006-01-02" -}}</time>
+                        <time class="post-date" datetime="{{ .Params.date }}">{{- .Date | time.Format (default "2006-01-02" site.Params.DateFormat) -}}</time>
                         {{ end }}
                         </div>
                         {{ if .Content }}

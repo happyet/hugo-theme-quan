@@ -5,8 +5,4 @@
             {{ .Content }}
         </div>       
     </article>
-
-    {{ if not .Params.disableComments }}
-        {{ partial "comments.html" . }}
-    {{ end }}
 {{ end }}

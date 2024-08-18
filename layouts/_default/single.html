@@ -48,8 +48,4 @@
         {{ partial "post-pagination.html" . }}
     {{ end }}
 
-    {{ if not .Params.disableComments }}
-        {{ partial "comments.html" . }}
-    {{ end }}
-
 {{ end }}
